@@ -8,6 +8,7 @@ namespace big_sister_base
         static void Main(string[] args)
         {
             LittleGuy littleGuy = new LittleGuy();
+            BigSister bigsister = new BigSister();
             Market market = new Market();
             bool continueCycle = true;
             while (continueCycle)
@@ -37,7 +38,9 @@ namespace big_sister_base
                         {
                             if (market.Storage[index].Stock > 0)
                             {
+                                littleGuy.ProductAdded += bigsister.OnProductAdded;
                                 littleGuy.AddProduct(market.Storage[index]);
+                                littleGuy.ProductAdded -= bigsister.OnProductAdded;
                                 market.removeStorage(index);
                             }
                             else
@@ -59,9 +62,11 @@ namespace big_sister_base
                         break;
                     case "4":
                         Console.Clear();
+                        littleGuy.Payed += bigsister.OnPayed; //Evento suscrito
                         littleGuy.Pay();
-                        littleGuy.SaveData();
-                        market.SaveStorage();
+                        //littleGuy.SaveData();
+                        //market.SaveStorage();
+                        littleGuy.Payed -= bigsister.OnPayed; //Evento suscrito
                         continueCycle = false;
                         break;
                     case "5":

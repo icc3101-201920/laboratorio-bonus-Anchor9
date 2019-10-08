@@ -97,6 +97,8 @@ namespace big_sister_base
 
         public void Pay()
         {
+            //Bengala
+            OnPayed();
             int total = 0;
             foreach (Product p in Cart.Products)
             {
@@ -112,8 +114,7 @@ namespace big_sister_base
             shopList = new List<Product>();
             Generatelist();
             Cart.Clear();
-            //Bengala
-            OnPayed();
+            
         }
 
         public void ViewCart()
@@ -174,14 +175,22 @@ namespace big_sister_base
 
         protected virtual void OnProductAdded()
         {
-
+            if (ProductAdded != null)
+            {
+                //3.2- Se dispara el evento. La fuente es este objeto y EventArgs.Empty ya que no queremos pasar parametros adicionales
+                ProductAdded(this, EventArgs.Empty);
+            }
 
         }
 
 
         protected virtual void OnPayed()
         {
-
+            if (Payed != null)
+            {
+                //3.2- Se dispara el evento. La fuente es este objeto y EventArgs.Empty ya que no queremos pasar parametros adicionales
+                Payed(this, EventArgs.Empty);
+            }
         }
 
 
