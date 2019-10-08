@@ -87,6 +87,7 @@ namespace big_sister_base
         public void AddProduct(Product product)
         {
             Cart.Products.Add(product);
+            OnProductAdded();
         }
 
         public void RemoveProduct(Product product)
@@ -111,6 +112,8 @@ namespace big_sister_base
             shopList = new List<Product>();
             Generatelist();
             Cart.Clear();
+            //Bengala
+            OnPayed();
         }
 
         public void ViewCart()
@@ -155,5 +158,34 @@ namespace big_sister_base
             formatter.Serialize(fs, shopList);
             fs.Close();
         }
+
+        //CREO PRIMER DELEGATE PARA AGREGAR COSAS AL CARRO
+        public delegate void AddProductEventHandler(object source, EventArgs args);
+        //CREO EVENTO PARA AGREGAR AL CARRO
+        public event AddProductEventHandler ProductAdded;
+
+        //Source = little guy
+
+        //CREO SEGUNDO DELEGATE PARA PAGAR
+        public delegate void PayEventHandler(object source, EventArgs args);
+        //CREO EVENTO PARA PAGAR
+        public event PayEventHandler Payed;
+
+
+        protected virtual void OnProductAdded()
+        {
+
+
+        }
+
+
+        protected virtual void OnPayed()
+        {
+
+        }
+
+
+
+
     }
 }
