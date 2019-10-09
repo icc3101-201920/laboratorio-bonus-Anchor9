@@ -87,7 +87,7 @@ namespace big_sister_base
         public void AddProduct(Product product)
         {
             Cart.Products.Add(product);
-            OnProductAdded();
+            OnProductAdded(product);
         }
 
         public void RemoveProduct(Product product)
@@ -161,7 +161,7 @@ namespace big_sister_base
         }
 
         //CREO PRIMER DELEGATE PARA AGREGAR COSAS AL CARRO
-        public delegate void AddProductEventHandler(object source, EventArgs args);
+        public delegate void AddProductEventHandler(object source, RequestEventArgs args);
         //CREO EVENTO PARA AGREGAR AL CARRO
         public event AddProductEventHandler ProductAdded;
 
@@ -173,12 +173,12 @@ namespace big_sister_base
         public event PayEventHandler Payed;
 
 
-        protected virtual void OnProductAdded()
+        protected virtual void OnProductAdded(Product product)
         {
             if (ProductAdded != null)
             {
                 //3.2- Se dispara el evento. La fuente es este objeto y EventArgs.Empty ya que no queremos pasar parametros adicionales
-                ProductAdded(this, EventArgs.Empty);
+                ProductAdded(this, new RequestEventArgs() { product = product, shoplist = shopList });
             }
 
         }
